@@ -15,17 +15,24 @@
 
       let data = {};
         let XHR = new XMLHttpRequest();
+        // Open JSON file
         XHR.open("GET", "./bio.json", true);
+        // Call to XHR object
         XHR.send();
+        // listen for readystate to be 4 and status to be 200
         XHR.onreadystatechange = function () {
             if ((this.readyState === 4) && (this.status === 200)) {
+              // Convert from string to JSON
                 data = JSON.parse(this.responseText);
             }
         };
 
+          // Wait for data to load before using it
            XHR.addEventListener("load", function () {
             let BioContent = document.getElementById("SecondParagraph");
+            // Loop to cycle through file for content
             data.content.forEach(function(content) {
+              // creates a <p> element for every piece of content in the JSON file
               let paragraph = document.createElement("p");
               paragraph.innerHTML = "\n <p>" + content.paragraph + "</p>\n ";
               BioContent.appendChild(paragraph);
